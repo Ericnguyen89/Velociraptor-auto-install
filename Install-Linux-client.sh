@@ -31,7 +31,11 @@ Environment=LANG=en_US.UTF-8
 ExecStart=/usr/local/bin/velociraptor --config /etc/velociraptor/client.config.yaml client -v
 [Install]
 WantedBy=multi-user.target" > /lib/systemd/system/velociraptor-client.service
+echo "
+----------------------------------------------------------------------------------------------
+--> YOU NEED HAVE DOWNLOAD Client.config.yaml FROM SERVER FIST YOU START THIS SETUP <---
 
+----------------------------------------------------------------------------------------------"
 config_file="/etc/velociraptor/server.config.yaml"
 service_file="/lib/systemd/system/velociraptor.service"
 
