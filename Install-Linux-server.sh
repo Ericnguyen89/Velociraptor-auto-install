@@ -16,7 +16,7 @@ else
     exit 1
 fi
 wget https://github.com/Velocidex/velociraptor/releases/download/v0.6.9/velociraptor-v0.6.9-linux-amd64
-mkdir /usr/local/bin/velociraptor
+#mkdir /usr/local/bin/velociraptor
 cp velociraptor-v0.6.9-linux-amd64 /usr/local/bin/velociraptor
 sudo chmod +x /usr/local/bin/velociraptor
 
@@ -63,14 +63,20 @@ else
   echo "
   ------------------------
   
-  DEFAULT CONFIG OF VELOCIRAPTOR NOT FOUND IN [/etc/velociraptor.config.yaml]"
+  DEFAULT CONFIG OF VELOCIRAPTOR NOT FOUND IN [/etc/velociraptor.config.yaml]
+  YOU NEED TO CHANGE IT:
+  
+  "
   
   # Prompt the user for the replacement value
-  read -p "Enter the replacement file value for /etc/velociraptor.config.yaml: " replacement
+  read -p "Enter the replacement config file value for Velociraptor you input look like [/etc/server.config.yaml]:" replacement
+  
   
   # Replace the value in the service file
   sed -i "s|/etc/velociraptor.config.yaml|$replacement|" "$service_file"
   
-  echo "Replacement complete."
+  echo "Complete setup a server system service for Velociraptor, Let start Velociraptor and Enjoy!"
+  sudo systemctl start velociraptor
+  
 fi
 
