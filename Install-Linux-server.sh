@@ -16,7 +16,7 @@ else
     exit 1
 fi
 wget https://github.com/Velocidex/velociraptor/releases/download/v0.6.9/velociraptor-v0.6.9-linux-amd64
-#mkdir /usr/local/bin/velociraptor
+mkdir /etc/velociraptor
 cp velociraptor-v0.6.9-linux-amd64 /usr/local/bin/velociraptor
 sudo chmod +x /usr/local/bin/velociraptor
 
@@ -25,8 +25,8 @@ echo "
 --------------------------------------------
 NOTE: remember path of 
 1. Path to the logs directory. /opt/velociraptor/logs
-2. Server config file? /etc/velociraptor.config.yaml
-3. The client config file? /etc/client.config.yaml
+2. Server config file? /etc/velociraptor/server.config.yaml
+3. The client config file? /etc/velociraptor/client.config.yaml
 --> if you not chose this suget, you need remember PATH URL you input to change the value to fix GUI access and something issus by the connect agent-server
 --------------------------------------------
 
@@ -44,9 +44,9 @@ Restart=always
 RestartSec=120
 LimitNOFILE=20000
 Environment=LANG=en_US.UTF-8
-ExecStart=/usr/local/bin/velociraptor --config /etc/velociraptor.config.yaml frontend -v
+ExecStart=/usr/local/bin/velociraptor --config /etc/velociraptor/server.config.yaml frontend -v
 [Install]
-WantedBy=multi-user.target " > /lib/systemd/system/velociraptor.service
+WantedBy=multi-user.target" > /lib/systemd/system/velociraptor.service
 sudo systemctl daemon-reload
 sudo systemctl enable --now velociraptor
 
@@ -55,7 +55,7 @@ sudo systemctl enable --now velociraptor
 #!/bin/bash
 
 # Read the file content
-file_path="/etc/velociraptor.config.yaml"
+file_path="/etc/velociraptor/server.config.yaml"
 file_content=$(cat "$file_path")
 
 # Find occurrences of '127.0.0.1' in the file
@@ -69,7 +69,7 @@ else
   ip_addresses=($(hostname -I))
   ip_count=${#ip_addresses[@]}
 
-  echo "Select the IP address to replace '127.0.0.1':"
+  echo "Select the IP address to replace default value of localhost '127.0.0.1':"
 
   # Print IP addresses with corresponding numbers
   for ((i=0; i<ip_count; i++)); do
@@ -95,12 +95,12 @@ fi
 # seaching config of velociraptor server to double check after start services
 #!/bin/bash
 
-config_file="/etc/velociraptor.config.yaml"
+config_file="/etc/velociraptor/server.config.yaml"
 service_file="/lib/systemd/system/velociraptor.service"
 
 # Check if the config file exists
 if [ -e "$config_file" ]; then
-  echo "Config file already exists."
+  echo "All Working, please make a status of service to double check and sue not happend"
 else
   echo "
   ------------------------
@@ -111,14 +111,13 @@ else
   "
   
   # Prompt the user for the replacement value
-  read -p "Enter the replacement config file value for Velociraptor you input look like [/etc/server.config.yaml]:" replacement
+  read -p "Enter the replacement config file value for Velociraptor you input look like [/etc/velociraptor/server.config.yaml]:" replacement
   
   
   # Replace the value in the service file
   sed -i "s|/etc/velociraptor.config.yaml|$replacement|" "$service_file"
   
   echo "Complete setup a server system service for Velociraptor, Let start Velociraptor and Enjoy!"
-  sudo systemctl start velociraptor
-  
+    
 fi
-
+sudo systemctl start velociraptor
