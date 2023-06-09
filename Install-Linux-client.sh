@@ -48,7 +48,7 @@ else
   ------------------------
   
   DEFAULT CONFIG OF VELOCIRAPTOR CLIENT NOT FOUND IN [/etc/velociraptor/client.config.yaml]
-  YOU NEED TO CHANGE IT:
+  YOU NEED TO UPDATE IT:
   
   "
   
