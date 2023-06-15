@@ -23,8 +23,8 @@ if [ -d "$folder" ]; then
   rm -rf "$folder"
   echo " ---> Folder Clean!!!"
 else
-  echo "Folder $folder Has been Cleaned."
   mkdir /etc/velociraptor
+  echo "Folder $folder never exist, Create it."
 fi
 
 cp velociraptor-v0.6.9-linux-amd64 /usr/local/bin/velociraptor
