@@ -36,7 +36,7 @@ echo "
 --> YOU NEED HAVE DOWNLOAD Client.config.yaml FROM SERVER FIST YOU START THIS SETUP <---
 
 ----------------------------------------------------------------------------------------------"
-config_file="/etc/velociraptor/server.config.yaml"
+config_file="/etc/velociraptor/client.config.yaml"
 service_file="/lib/systemd/system/velociraptor.service"
 
 # Check if the config file exists
