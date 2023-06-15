@@ -15,7 +15,18 @@ else
     exit 1
 fi
 wget https://github.com/Velocidex/velociraptor/releases/download/v0.6.9/velociraptor-v0.6.9-linux-amd64
-mkdir /etc/velociraptor
+#---------------check folder------------
+folder="/etc/velociraptor"
+
+if [ -d "$folder" ]; then
+  echo "Folder $folder exists. Deleting..."
+  rm -rf "$folder"
+  echo " ---> Folder Clean!!!"
+else
+  echo "Folder $folder Has been Cleaned."
+  mkdir /etc/velociraptor
+fi
+
 cp velociraptor-v0.6.9-linux-amd64 /usr/local/bin/velociraptor
 sudo chmod +x /usr/local/bin/velociraptor
 #write a service to start Velociraptor client
@@ -37,11 +48,11 @@ echo "
 
 ----------------------------------------------------------------------------------------------"
 config_file="/etc/velociraptor/client.config.yaml"
-service_file="/lib/systemd/system/velociraptor.service"
+service_file="/lib/systemd/system/velociraptor-client.service"
 
 # Check if the config file exists
 if [ -e "$config_file" ]; then
-  echo "All Working, please make a status of service to double check and sue not happend"
+  echo "All Working, please make a status of service to double check and sure not happend"
   sudo systemctl start velociraptor-client
 else
   echo "
@@ -59,6 +70,6 @@ else
   # Replace the value in the service file
   sed -i "s|/etc/velociraptor/client.config.yaml|$replacement|" "$service_file"
   
-  echo "Complete setup a server system service for Velociraptor, Let start Velociraptor and Enjoy!"
+  echo "Complete setup a server system service for Velociraptor, Let's start Velociraptor and Enjoy!"
     
 fi
