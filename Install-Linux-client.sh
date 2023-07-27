@@ -53,7 +53,7 @@ service_file="/lib/systemd/system/velociraptor-client.service"
 # Check if the config file exists
 if [ -e "$config_file" ]; then
   echo "All Working, please make a status of service to double check and sure not happend"
-  sudo systemctl start velociraptor-client
+  
 else
   echo "
   ------------------------
@@ -71,5 +71,5 @@ else
   sed -i "s|/etc/velociraptor/client.config.yaml|$replacement|" "$service_file"
   
   echo "Complete setup a server system service for Velociraptor, Let's start Velociraptor and Enjoy!"
-    
+  sudo systemctl start velociraptor-client  
 fi
