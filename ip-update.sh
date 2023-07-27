@@ -8,7 +8,7 @@ That make fix error of access GUI on port 8889 and connect from agent to server 
 
 "
 # Read the file content
-file_path="/etc/velociraptor.config.yaml"
+file_path="/etc/velociraptor/server.config.yaml"
 file_content=$(cat "$file_path")
 
 # Find occurrences of '127.0.0.1' in the file
@@ -39,6 +39,7 @@ else
 
     # Write the updated content back to the file
     echo "$updated_content" > "$file_path"
+    sudo systemctl restart velociraptor.service
     echo "Value replaced successfully and you can access to GUI web "
   else
     echo "Invalid choice. No changes were made."
