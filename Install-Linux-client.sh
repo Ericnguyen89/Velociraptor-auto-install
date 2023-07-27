@@ -21,10 +21,11 @@ folder="/etc/velociraptor"
 if [ -d "$folder" ]; then
   echo "Folder $folder exists. Deleting..."
   rm -rf "$folder"
+  mkdir /etc/velociraptor
   echo " ---> Folder Clean!!!"
 else
   mkdir /etc/velociraptor
-  echo "Folder $folder never exist, Create it."
+  echo "Folder $folder Created and ready to install continue."
 fi
 
 cp velociraptor-v0.6.9-linux-amd64 /usr/local/bin/velociraptor
