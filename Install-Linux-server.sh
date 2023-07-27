@@ -36,7 +36,7 @@ velociraptor config generate -i
 
 # wite a Services to auto start
 echo "[Unit]
-Description=Velociraptor linux amd64
+Description=Velociraptor linux SERVER amd64
 After=syslog.target network.target
 [Service]
 Type=simple
@@ -105,19 +105,18 @@ else
   echo "
   ------------------------
   
-  DEFAULT CONFIG OF VELOCIRAPTOR NOT FOUND IN [/etc/velociraptor.config.yaml]
+  DEFAULT CONFIG OF VELOCIRAPTOR NOT FOUND IN [/etc/velociraptor/server.config.yaml]
   YOU NEED TO CHANGE IT:
   
   "
   
   # Prompt the user for the replacement value
   read -p "Enter the replacement config file value for Velociraptor you input look like [/etc/velociraptor/server.config.yaml]:" replacement
-  
-  
   # Replace the value in the service file
-  sed -i "s|/etc/velociraptor.config.yaml|$replacement|" "$service_file"
-  
+  #sed -i "s|/etc/velociraptor.config.yaml|$replacement|" "$service_file"
+  cp $replacement /etc/velociraptor/server.config.yaml
   echo "Complete setup a server system service for Velociraptor, Let start Velociraptor and Enjoy!"
     
 fi
-sudo systemctl start velociraptor
+echo "Done!......Let We start seaching and replace so missing config"
+wget https://raw.githubusercontent.com/Ericnguyen89/Velociraptor-auto-install/main/ip-update.sh && sudo bash ip-update.sh
