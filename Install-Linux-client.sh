@@ -49,6 +49,7 @@ else
     echo "File $file_velo Has been ready."
 fi
 #write a service to start Velociraptor client
+rm -f /lib/systemd/system/velociraptor-client.service
 echo "[Unit]
 Description=Velociraptor CLIENT linux amd64
 After=syslog.target network.target
