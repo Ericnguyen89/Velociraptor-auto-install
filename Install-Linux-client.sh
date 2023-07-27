@@ -83,7 +83,7 @@ else
   
   "
   # Prompt the user for the replacement value
-  read -p "Enter the replacement config file value for Velociraptor client file you download look like [/etc/velociraptor/client.config.yaml]:" replacement
+  read -p "NHẬP VÀO ĐƯỜNG DẪN FILE CLIENT CONFIG ĐÃ TẢI VỀ, ví dụ [/tmp/client.config.yaml]:" replacement
   # Replace the value in the service file
   #sed -i "s|/etc/velociraptor/client.config.yaml|$replacement|" "$service_file"
   cp $replacement /etc/velociraptor/client.config.yaml
