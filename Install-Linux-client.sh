@@ -17,22 +17,35 @@ fi
 wget https://github.com/Velocidex/velociraptor/releases/download/v0.6.9/velociraptor-v0.6.9-linux-amd64
 #---------------check folder------------
 folder="/etc/velociraptor"
-
 if [ -d "$folder" ]; then
   echo "Folder $folder exists. Deleting..."
   rm -rf "$folder"
   mkdir /etc/velociraptor
-  echo " ---> Folder Clean!!!"
+  echo " ---> Folder Cleaned!!!"
 else
   mkdir /etc/velociraptor
   echo "Folder $folder Created and ready to install continue."
 fi
-
-cp velociraptor-v0.6.9-linux-amd64 /usr/local/bin/velociraptor
-sudo chmod +x /usr/local/bin/velociraptor
+#delete old file velociraptor
+#!/bin/bash
+file_velo="/usr/local/bin/velociraptor"
+if [ -e "$file_velo" ]; then
+    echo "File $file_velo exists. Updating to new version..."
+    rm "$file_velo"
+    echo "File $file_velo removed"
+    echo "Start creating services binary of Velociraptor."
+    cp velociraptor-v0.6.9-linux-amd64 /usr/local/bin/velociraptor
+    sudo chmod +x /usr/local/bin/velociraptor
+    echo "File $file_velo Updated to new version."
+else
+    echo "Start creating services binary of Velociraptor."
+    cp velociraptor-v0.6.9-linux-amd64 /usr/local/bin/velociraptor
+    sudo chmod +x /usr/local/bin/velociraptor
+    echo "File $file_velo Has been ready."
+fi
 #write a service to start Velociraptor client
 echo "[Unit]
-Description=Velociraptor linux amd64
+Description=Velociraptor CLIENT linux amd64
 After=syslog.target network.target
 [Service]
 Type=simple
@@ -63,11 +76,8 @@ else
   YOU NEED TO UPDATE IT:
   
   "
-  
   # Prompt the user for the replacement value
   read -p "Enter the replacement config file value for Velociraptor client file you download look like [/etc/velociraptor/client.config.yaml]:" replacement
-  
-  
   # Replace the value in the service file
   #sed -i "s|/etc/velociraptor/client.config.yaml|$replacement|" "$service_file"
   cp $replacement /etc/velociraptor/client.config.yaml
