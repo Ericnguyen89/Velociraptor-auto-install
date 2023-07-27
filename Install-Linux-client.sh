@@ -1,3 +1,4 @@
+wget https://raw.githubusercontent.com/Ericnguyen89/Velociraptor-auto-install/main/fix-hostname.sh && bash fix-hostname.sh
 if [[ -f /etc/os-release ]]; then
     . /etc/os-release
     OS=$ID
@@ -7,7 +8,6 @@ else
 fi
 if [[ "$OS" == "ubuntu" ]]; then
     apt-get update -y
-    apt-get upgrade -y
 elif [[ "$OS" == "centos" ]]; then
     yum update -y
 else
