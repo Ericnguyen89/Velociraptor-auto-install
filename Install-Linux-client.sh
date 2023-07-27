@@ -14,7 +14,12 @@ else
     echo "Unsupported operating system."
     exit 1
 fi
-wget https://github.com/Velocidex/velociraptor/releases/download/v0.6.9/velociraptor-v0.6.9-linux-amd64
+# ---- Automatic download lastest version of Velociraptor -----
+#wget https://github.com/Velocidex/velociraptor/releases/download/v0.6.9/velociraptor-v0.6.9-linux-amd64
+URL1="https://github.com/Velocidex/velociraptor/releases/latest/download/velociraptor-linux-amd64"
+TARGET_DIR1="/tmp"
+wget -q --show-progress -O "$TARGET_DIR1/velociraptor" "$URL1"
+echo "Velociraptor downloaded successfully to $TARGET_DIR1"
 #---------------check folder------------
 folder="/etc/velociraptor"
 if [ -d "$folder" ]; then
@@ -34,12 +39,12 @@ if [ -e "$file_velo" ]; then
     rm "$file_velo"
     echo "File $file_velo removed"
     echo "Start creating services binary of Velociraptor."
-    cp velociraptor-v0.6.9-linux-amd64 /usr/local/bin/velociraptor
+    cp $TARGET_DIR1/velociraptor /usr/local/bin/velociraptor
     sudo chmod +x /usr/local/bin/velociraptor
     echo "File $file_velo Updated to new version."
 else
     echo "Start creating services binary of Velociraptor."
-    cp velociraptor-v0.6.9-linux-amd64 /usr/local/bin/velociraptor
+    cp $TARGET_DIR1/velociraptor /usr/local/bin/velociraptor
     sudo chmod +x /usr/local/bin/velociraptor
     echo "File $file_velo Has been ready."
 fi
