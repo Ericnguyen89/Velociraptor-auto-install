@@ -72,5 +72,6 @@ else
   #sed -i "s|/etc/velociraptor/client.config.yaml|$replacement|" "$service_file"
   cp $replacement /etc/velociraptor/client.config.yaml
   echo "Complete setup a server system service for Velociraptor, Let's start Velociraptor and Enjoy!"
+  sudo systemctl daemon-reload
   sudo systemctl restart velociraptor-client  
 fi
